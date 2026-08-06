@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ueda Toma Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f0d11;
+      --bg-soft: #161219;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-strong: rgba(255, 255, 255, 0.1);
+      --card: #f7f3ee;
+      --card-ink: #161214;
+      --text: rgba(255, 255, 255, 0.96);
+      --muted: rgba(255, 255, 255, 0.68);
+      --line: rgba(255, 255, 255, 0.16);
+      --accent: #f0b32f;
+      --accent-soft: rgba(240, 179, 47, 0.16);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max: 1512px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.06), transparent 24%),
+        radial-gradient(circle at 85% 14%, rgba(240, 179, 47, 0.07), transparent 20%),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05), transparent 22%),
+        linear-gradient(180deg, #17141a 0%, var(--bg) 22%, #110f13 100%);
+      font-family: "Hiragino Sans", "Yu Gothic", "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page::before {
+      background:
+        linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 22%, transparent 24%, transparent 100%),
+        radial-gradient(circle at 14% 4%, rgba(255, 255, 255, 0.2) 0 1px, transparent 1.5px) 0 0 / 170px 170px,
+        radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1.5px) 0 0 / 220px 220px;
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+
+    .page::after {
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.14) 45%, rgba(0, 0, 0, 0.3));
+      opacity: 0.85;
+    }
+
+    .shell {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      padding: 0 18px 28px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(15, 13, 17, 0.9), rgba(15, 13, 17, 0.4));
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mark-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px 14px;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      color: rgba(255, 255, 255, 0.86);
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 74px) 0 clamp(28px, 5vw, 54px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: clamp(20px, 3vw, 36px);
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding: clamp(14px, 2vw, 22px) 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(3rem, 9vw, 7.8rem);
+      line-height: 0.9;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 900;
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.22),
+        0 0 36px rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-subtitle {
+      margin: 18px 0 0;
+      max-width: 56ch;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+      line-height: 1.95;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.26);
+      outline: none;
+    }
+
+    .button--accent {
+      background: linear-gradient(180deg, rgba(240, 179, 47, 0.95), rgba(210, 145, 0, 0.92));
+      color: #16120a;
+      border-color: transparent;
+      box-shadow: 0 16px 32px rgba(240, 179, 47, 0.16);
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 16px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.18), transparent 18%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 38%);
+      pointer-events: none;
+    }
+
+    .hero-panel img {
+      width: 100%;
+      border-radius: calc(var(--radius-xl) - 8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: 58% 16%;
+      filter: grayscale(1) contrast(1.05) brightness(0.92);
+    }
+
+    .hero-panel-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 8px 2px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+    }
+
+    .section {
+      padding: clamp(20px, 4vw, 40px) 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 8px 0 0;
+      font-size: clamp(1.7rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-copy {
+      max-width: 64ch;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.9;
+      margin: 0;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .overview-card {
+      min-height: 220px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      color: var(--card-ink);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .overview-card,
+    .overview-card h3,
+    .overview-card p,
+    .overview-card .badge,
+    .overview-card .section-copy {
+      color: var(--card-ink);
+    }
+
+    .overview-card::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(240, 179, 47, 0.12);
+    }
+
+    .overview-card h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .overview-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(22, 18, 20, 0.8);
+    }
+
+    .profile-card {
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-media {
+      border-radius: 18px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, rgba(17, 17, 19, 0.09), rgba(17, 17, 19, 0.02));
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 72% 22%;
+      filter: grayscale(1) contrast(1.02);
+    }
+
+    .profile-meta {
+      display: grid;
+      gap: 6px;
+    }
+
+    .profile-name {
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      margin: 0;
+    }
+
+    .profile-role {
+      margin: 0;
+      color: rgba(22, 18, 20, 0.7);
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .banner-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .banner-visual {
+      min-height: 132px;
+      border-radius: 18px;
+      margin-bottom: 14px;
+      background:
+        linear-gradient(90deg, transparent 0 12%, rgba(255, 255, 255, 0.12) 12% 13%, transparent 13% 100%),
+        radial-gradient(circle at 18% 30%, rgba(255, 255, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 72% 58%, rgba(240, 179, 47, 0.32), transparent 20%),
+        linear-gradient(135deg, #052c45, #0a4159 46%, #13213f);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.04) brightness(0.82);
+      opacity: 0.96;
+    }
+
+    .banner-visual::after {
+      content: "";
+      position: absolute;
+      inset: 18px 16px;
+      border-radius: 14px;
+      background:
+        linear-gradient(90deg, rgba(240, 179, 47, 0.04), rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.04)),
+        repeating-linear-gradient(180deg, transparent 0 10px, rgba(255, 255, 255, 0.08) 10px 11px);
+      opacity: 0.56;
+      mask: linear-gradient(90deg, transparent 0 4%, #000 14% 86%, transparent 96%);
+    }
+
+    .banner-visual .glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 16%),
+        radial-gradient(circle at 40% 62%, rgba(240, 179, 47, 0.12), transparent 24%);
+      mix-blend-mode: screen;
+    }
+
+    .banner-copy {
+      padding: 0 2px 2px;
+    }
+
+    .banner-copy .section-copy {
+      margin-top: 6px;
+    }
+
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(17, 16, 19, 0.08);
+      border: 1px solid rgba(17, 16, 19, 0.12);
+      color: rgba(17, 16, 19, 0.9);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .badge--warm {
+      background: rgba(240, 179, 47, 0.12);
+      border-color: rgba(240, 179, 47, 0.22);
+    }
+
+    .icon-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
+    }
+
+    .brand-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 12px 0 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.92);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-chip img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .abstract-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .abstract-line {
+      height: 82px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03)),
+        repeating-linear-gradient(90deg, transparent 0 16px, rgba(255, 255, 255, 0.12) 16px 17px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abstract-line::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.38), transparent 10px),
+        radial-gradient(circle at 70% 54%, rgba(240, 179, 47, 0.75), transparent 12px),
+        radial-gradient(circle at 54% 38%, rgba(255, 255, 255, 0.28), transparent 9px),
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12) 48%, transparent 52%);
+      opacity: 0.8;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .dark-card {
+      padding: clamp(18px, 2vw, 24px);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .about-figure {
+      display: grid;
+      grid-template-columns: minmax(140px, 1fr) minmax(0, 1.3fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 71% 18%;
+      filter: grayscale(1) contrast(1.02) brightness(0.96);
+    }
+
+    .about-copy h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+      letter-spacing: 0.06em;
+    }
+
+    .about-copy p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.74);
+      line-height: 1.95;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .fact-list li {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .fact-list strong {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .skill-group {
+      display: grid;
+      gap: 16px;
+    }
+
+    .skill-block {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .skill-block h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .icon-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .icon-pill {
+      min-width: 54px;
+      height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .icon-pill--round {
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      width: 54px;
+      padding: 0;
+    }
+
+    .tools-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tools-card {
+      background: rgba(247, 243, 238, 0.98);
+      color: var(--card-ink);
+    }
+
+    .tools-card h3,
+    .tools-card strong,
+    .tools-card span,
+    .tools-card .section-copy {
+      color: var(--card-ink);
+    }
+
+    .tools-list li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tool-mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(22, 18, 20, 0.06);
+      border: 1px solid rgba(22, 18, 20, 0.12);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--card-ink);
+    }
+
+    .service-icon {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .service-icon--zed {
+      width: 34px;
+      height: 34px;
+      filter: invert(1);
+    }
+
+    .tools-list strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      color: var(--card-ink);
+    }
+
+    .tools-list span {
+      color: rgba(22, 18, 20, 0.78);
+      line-height: 1.6;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .work-card {
+      padding: 16px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--card-ink);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+    }
+
+    .work-card h3,
+    .work-card p,
+    .work-card .tag {
+      color: var(--card-ink);
+    }
+
+    .work-card figure {
+      margin: 0;
+    }
+
+    .work-card img {
+      width: 100%;
+      aspect-ratio: 352 / 282;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+    }
+
+    .work-card h3 {
+      margin: 14px 0 8px;
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+    }
+
+    .work-card p {
+      margin: 0;
+      line-height: 1.85;
+      color: rgba(22, 18, 20, 0.82);
+    }
+
+    .work-card .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(22, 18, 20, 0.06);
+      color: rgba(22, 18, 20, 0.8);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .contact-card {
+      padding: clamp(18px, 2.5vw, 28px);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h3 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .contact-lines {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 22px;
+      font-size: 0.96rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-lines strong {
+      color: rgba(255, 255, 255, 0.96);
+      display: inline-block;
+      min-width: 5.6em;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .input-line,
+    .input-box {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      padding: 12px 14px;
+      outline: none;
+      font: inherit;
+    }
+
+    .input-line {
+      min-height: 42px;
+    }
+
+    .input-box {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .contact-note {
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 12px 0 28px;
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .anchor {
+      scroll-margin-top: 100px;
+    }
+
+    .accent-mark {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1200px) {
+      .overview-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .overview-card--tall {
+        grid-column: span 2;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .shell {
+        padding-inline: 14px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .overview-grid,
+      .works-grid,
+      .content-grid,
+      .abstract-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overview-card--tall {
+        grid-column: auto;
+      }
+
+      .about-figure {
+        grid-template-columns: 1fr;
+      }
+
+      .fact-list li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.4rem, 16vw, 4.2rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="top">
+    <div class="shell">
+      <header class="topbar">
+        <a class="mark" href="#top" aria-label="トップへ戻る">
+          <span class="mark-badge">UT</span>
+          <span>Ueda Toma</span>
+        </a>
+        <nav class="nav" aria-label="ページ内リンク">
+          <a href="#profile">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#works">Works</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero anchor" aria-label="Hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Portfolio / MVP</p>
+            <h1 class="hero-title">UEDA TOMA</h1>
+            <div class="hero-actions">
+              <a class="button button--accent" href="#works">See Works</a>
+              <a class="button" href="#contact">Contact</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Profile preview">
+            <img src="./profile-photo.png" alt="Profile portrait preview" />
+            <div class="hero-panel-foot">
+              <span>Profile / Intro</span>
+              <span>01</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section anchor" id="overview">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Overview</p>
+            </div>
+          </div>
+
+          <div class="overview-grid">
+            <article class="overview-card profile-card">
+              <div class="profile-media">
+                <img src="./profile-photo.png" alt="上田冬真のプロフィールカード" />
+              </div>
+              <div class="profile-meta">
+                <h3>Profile</h3>
+              </div>
+            </article>
+
+            <article class="overview-card banner-card" id="data-science">
+              <h3>Why Data Science ?</h3>
+              <div class="banner-visual" aria-hidden="true">
+                <img
+                  class="banner-image"
+                  src="https://picsum.photos/seed/portfolio-data-science/1400/900"
+                  alt=""
+                />
+                <span class="glow"></span>
+              </div>
+              <div class="banner-copy">
+                <div class="badge-grid">
+                  <span class="badge badge--warm">Visualize</span>
+                  <span class="badge">Analyze</span>
+                  <span class="badge">Explain</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="overview-card">
+              <h3>Skills</h3>
+              <div class="icon-grid" aria-label="Skills">
+                <img class="brand-icon" src="https://cdn.simpleicons.org/c?viewbox=auto" alt="C" />
+                <img class="brand-icon" src="https://cdn.simpleicons.org/python?viewbox=auto" alt="Python" />
+                <img class="brand-icon" src="https://cdn.simpleicons.org/html5?viewbox=auto" alt="HTML5" />
+                <img class="brand-icon" src="https://cdn.simpleicons.org/css?viewbox=auto" alt="CSS" />
+                <img class="brand-icon" src="https://cdn.simpleicons.org/react?viewbox=auto" alt="React" />
+                <img class="brand-icon" src="https://cdn.simpleicons.org/figma?viewbox=auto" alt="Figma" />
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="section anchor" id="profile">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Profile</p>
+              <h2 class="section-title">Who am I</h2>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <article class="dark-card about-figure">
+              <div class="about-photo">
+                <img src="./profile-photo.png" alt="上田冬真のプロフィール写真" />
+              </div>
+              <div class="about-copy">
+                <h3>上田 冬真</h3>
+                <ul class="fact-list">
+                  <li><strong>Interest</strong><span>エンジニアリング / デザイン / 生成AI / ものづくり</span></li>
+                  <li><strong>Style</strong><span>まずは MVP を作って、見せ方と改善点を早く掴む</span></li>
+                  <li><strong>Focus</strong><span>読みやすい UI、伝わる説明、継続しやすい作業導線</span></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="dark-card">
+              <h3 class="section-title" style="margin-top: 0;">Why Data Science ?</h3>
+              <div class="banner-visual" style="margin-top: 18px;">
+                <img
+                  class="banner-image"
+                  src="https://picsum.photos/seed/portfolio-workflow/1200/800"
+                  alt=""
+                />
+                <span class="glow"></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section anchor" id="skills">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Skills</p>
+              <h2 class="section-title">coding / design</h2>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <article class="dark-card skill-group">
+              <div class="skill-block">
+                <h3>Coding</h3>
+                <div class="icon-row">
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/c?viewbox=auto" alt="C" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/python?viewbox=auto" alt="Python" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/javascript?viewbox=auto" alt="JavaScript" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/typescript?viewbox=auto" alt="TypeScript" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/html5?viewbox=auto" alt="HTML5" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/css?viewbox=auto" alt="CSS" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/react?viewbox=auto" alt="React" />
+                </div>
+              </div>
+              <div class="skill-block">
+                <h3>Design</h3>
+                <div class="icon-row">
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/figma?viewbox=auto" alt="Figma" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/adobeillustrator?viewbox=auto" alt="Adobe Illustrator" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/adobephotoshop?viewbox=auto" alt="Adobe Photoshop" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/adobexd?viewbox=auto" alt="Adobe XD" />
+                </div>
+              </div>
+            </article>
+
+            <article class="dark-card skill-group">
+              <div class="skill-block">
+                <h3>Other</h3>
+                <div class="icon-row">
+                  <span class="brand-chip"><span class="accent-mark">Z</span>Zed</span>
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/github?viewbox=auto" alt="GitHub" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/ghostty?viewbox=auto" alt="Ghostty" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/obsidian?viewbox=auto" alt="Obsidian" />
+                  <img class="brand-icon" src="https://cdn.simpleicons.org/linear?viewbox=auto" alt="Linear" />
+                </div>
+              </div>
+              <div class="skill-block">
+                <h3>What I care about</h3>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section anchor" id="tools">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Tools</p>
+              <h2 class="section-title">everyday stack</h2>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <article class="dark-card tools-card">
+              <ul class="tools-list">
+                <li>
+                  <div class="tool-mark" aria-hidden="true">
+                    <img class="service-icon" src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/codex-openai/default.svg" alt="" />
+                  </div>
+                  <div>
+                    <strong>codex</strong>
+                  </div>
+                </li>
+                <li>
+                  <div class="tool-mark" aria-hidden="true">
+                    <img class="service-icon service-icon--zed" src="https://zed.dev/_next/static/media/logo-new-white.0gnyg5qr0_x6r.png" alt="" />
+                  </div>
+                  <div>
+                    <strong>zed</strong>
+                  </div>
+                </li>
+                <li>
+                  <div class="tool-mark" aria-hidden="true">
+                    <img class="service-icon" src="https://cdn.simpleicons.org/linear?viewbox=auto" alt="" />
+                  </div>
+                  <div>
+                    <strong>linear</strong>
+                  </div>
+                </li>
+                <li>
+                  <div class="tool-mark" aria-hidden="true">
+                    <img class="service-icon" src="https://cdn.simpleicons.org/ghostty?viewbox=auto" alt="" />
+                  </div>
+                  <div>
+                    <strong>ghostty</strong>
+                  </div>
+                </li>
+                <li>
+                  <div class="tool-mark" aria-hidden="true">
+                    <img class="service-icon" src="https://cdn.simpleicons.org/obsidian?viewbox=auto" alt="" />
+                  </div>
+                  <div>
+                    <strong>obsidian</strong>
+                  </div>
+                </li>
+              </ul>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="section anchor" id="works">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Works</p>
+              <h2 class="section-title">selected projects</h2>
+            </div>
+          </div>
+
+          <div class="works-grid">
+            <article class="work-card">
+              <figure>
+                <img src="./work-ai-lab-shot.png" alt="AI lab. project" />
+                <figcaption>
+                  <h3>AI lab.</h3>
+                  <div class="tag-row">
+                    <span class="tag">AI</span>
+                    <span class="tag">Prompt</span>
+                    <span class="tag">Workflow</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+
+            <article class="work-card">
+              <figure>
+                <img src="./work-dcon-shot.png" alt="DCON project" />
+                <figcaption>
+                  <h3>DCON</h3>
+                  <div class="tag-row">
+                    <span class="tag">Pitch</span>
+                    <span class="tag">Prototype</span>
+                    <span class="tag">Teamwork</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+
+            <article class="work-card">
+              <figure>
+                <img src="./work-sort-viewer-shot.png" alt="sort_viewer project" />
+                <figcaption>
+                  <h3>sort_viewer</h3>
+                  <div class="tag-row">
+                    <span class="tag">Visualization</span>
+                    <span class="tag">Education</span>
+                    <span class="tag">Web App</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+
+            <article class="work-card">
+              <figure>
+                <img src="./work-life-game-shot.png" alt="Life_game project" />
+                <figcaption>
+                  <h3>Life_game</h3>
+                  <div class="tag-row">
+                    <span class="tag">Simulation</span>
+                    <span class="tag">Playful</span>
+                    <span class="tag">Logic</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+          </div>
+        </section>
+
+        <section class="section anchor" id="contact">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Contact</p>
+              <h2 class="section-title">Let’s talk</h2>
+            </div>
+          </div>
+
+          <div class="contact-wrap">
+            <article class="contact-card">
+              <h3>CONTACT</h3>
+              <div class="contact-lines">
+                <div><strong>Tel</strong>: 070 - 3790 - 3490</div>
+                <div><strong>Mail</strong>: kmc2406@kamiyama.ac.jp</div>
+                <div><strong>addr</strong>: 〒771-3310 徳島県名西郡神山町神領西上角175-1</div>
+              </div>
+
+              <form class="contact-form">
+                <input class="input-line" type="text" name="name" placeholder="Name" aria-label="Name" />
+                <input class="input-line" type="email" name="email" placeholder="Email" aria-label="Email" />
+                <textarea class="input-box" name="message" placeholder="Message" aria-label="Message"></textarea>
+              </form>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span class="accent-mark">UT</span> Ueda Toma Portfolio
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
