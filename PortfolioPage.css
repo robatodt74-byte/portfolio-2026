@@ -272,6 +272,7 @@ img {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 18px;
+  flex-wrap: wrap;
 }
 
 .section-kicker {
@@ -487,6 +488,40 @@ img {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.filter-button:hover,
+.filter-button:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  outline: none;
+}
+
+.filter-button.is-active {
+  background: linear-gradient(180deg, rgba(240, 179, 47, 0.95), rgba(210, 145, 0, 0.92));
+  color: #16120a;
+  border-color: transparent;
 }
 
 .dark-card {
@@ -745,6 +780,17 @@ img {
   gap: 12px;
 }
 
+.contact-submit {
+  width: fit-content;
+  border: 0;
+  cursor: pointer;
+}
+
+.contact-submit:hover,
+.contact-submit:focus-visible {
+  transform: translateY(-1px);
+}
+
 .input-line,
 .input-box {
   width: 100%;
@@ -812,6 +858,15 @@ img {
   .works-grid,
   .content-grid {
     grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    width: 100%;
+  }
+
+  .filter-button {
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   .about-figure {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./PortfolioPage.css";
 
 import profilePhoto from "./profile-photo.png";
@@ -6,6 +7,7 @@ import workDcon from "./work-dcon-shot.png";
 import workSortViewer from "./work-sort-viewer-shot.png";
 import workLifeGame from "./work-life-game-shot.png";
 
+// AI-assisted layout iteration; final copy, structure, and interactions were reviewed manually.
 const skillCodingIcons = [
   { src: "https://cdn.simpleicons.org/c?viewbox=auto", alt: "C" },
   { src: "https://cdn.simpleicons.org/python?viewbox=auto", alt: "Python" },
@@ -58,26 +60,52 @@ const works = [
   {
     name: "AI lab.",
     image: workAiLab,
+    categories: ["AI", "Web"],
     tags: ["AI", "Prompt", "Workflow"],
   },
   {
     name: "DCON",
     image: workDcon,
+    categories: ["Web"],
     tags: ["Pitch", "Prototype", "Teamwork"],
   },
   {
     name: "sort_viewer",
     image: workSortViewer,
+    categories: ["Learning", "Web"],
     tags: ["Visualization", "Education", "Web App"],
   },
   {
     name: "Life_game",
     image: workLifeGame,
+    categories: ["Game", "Learning"],
     tags: ["Simulation", "Playful", "Logic"],
   },
 ];
 
+const workFilters = ["All", "AI", "Web", "Learning", "Game"];
+
+function buildMailtoUrl(formData) {
+  const name = formData.get("name")?.toString().trim() || "Anonymous";
+  const email = formData.get("email")?.toString().trim() || "(not provided)";
+  const message = formData.get("message")?.toString().trim() || "(no message)";
+  const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  return `mailto:kmc2406@kamiyama.ac.jp?subject=${subject}&body=${body}`;
+}
+
 export default function PortfolioPage() {
+  const [activeWorkFilter, setActiveWorkFilter] = useState("All");
+  const filteredWorks = works.filter(
+    (work) => activeWorkFilter === "All" || work.categories.includes(activeWorkFilter),
+  );
+
+  function handleContactSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    window.location.href = buildMailtoUrl(formData);
+  }
+
   return (
     <div className="page" id="top">
       <div className="shell">
@@ -292,10 +320,23 @@ export default function PortfolioPage() {
                 <p className="section-kicker">Works</p>
                 <h2 className="section-title">selected projects</h2>
               </div>
+              <div className="filter-bar" role="tablist" aria-label="Works filter">
+                {workFilters.map((filter) => (
+                  <button
+                    key={filter}
+                    type="button"
+                    className={`filter-button${activeWorkFilter === filter ? " is-active" : ""}`}
+                    aria-pressed={activeWorkFilter === filter}
+                    onClick={() => setActiveWorkFilter(filter)}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="works-grid">
-              {works.map((work) => (
+              {filteredWorks.map((work) => (
                 <article className="work-card" key={work.name}>
                   <figure>
                     <img src={work.image} alt={`${work.name} project`} />
@@ -338,10 +379,13 @@ export default function PortfolioPage() {
                   </div>
                 </div>
 
-                <form className="contact-form">
+                <form className="contact-form" onSubmit={handleContactSubmit}>
                   <input className="input-line" type="text" name="name" placeholder="Name" aria-label="Name" />
                   <input className="input-line" type="email" name="email" placeholder="Email" aria-label="Email" />
                   <textarea className="input-box" name="message" placeholder="Message" aria-label="Message" />
+                  <button className="contact-submit button button--accent" type="submit">
+                    Send
+                  </button>
                 </form>
               </article>
             </div>
