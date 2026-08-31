@@ -7,7 +7,7 @@ import workDcon from "./work-dcon-shot.png";
 import workSortViewer from "./work-sort-viewer-shot.png";
 import workLifeGame from "./work-life-game-shot.png";
 
-// AI-assisted layout iteration; final copy, structure, and interactions were reviewed manually.
+// インタラクションや技術的な動きの実装にはAIを活用し、レイアウトや内容は手動で確認・調整しました。
 const skillCodingIcons = [
   { src: "https://cdn.simpleicons.org/c?viewbox=auto", alt: "C" },
   { src: "https://cdn.simpleicons.org/python?viewbox=auto", alt: "Python" },
