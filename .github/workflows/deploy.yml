@@ -2,7 +2,7 @@ name: Deploy portfolio to GitHub Pages
 
 on:
   push:
-    branches: [feat/portfolio-2026]
+    branches: [main, feat/portfolio-2026]
   workflow_dispatch:
 
 permissions:
