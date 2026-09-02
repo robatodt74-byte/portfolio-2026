@@ -62,24 +62,40 @@ const works = [
     image: workAiLab,
     categories: ["AI", "Web"],
     tags: ["AI", "Prompt", "Workflow"],
+    background: "生成AIを使った制作の再現性と改善点を検証するための実験プロジェクト。",
+    role: "企画、プロンプト設計、検証フローの整理",
+    result: "試行内容を比較できるワークフローとして整理",
+    learning: "AIの出力だけでなく、検証条件と判断基準を残す重要性",
   },
   {
     name: "DCON",
     image: workDcon,
     categories: ["Web"],
     tags: ["Pitch", "Prototype", "Teamwork"],
+    background: "チームでアイデアを形にし、短時間で伝わる提案へまとめるプロジェクト。",
+    role: "プロトタイプ制作と発表内容の構成",
+    result: "議論したアイデアを画面と資料で共有できる形に整理",
+    learning: "チームの視点を揃えるには、早い段階で触れるものを作ることが有効",
   },
   {
     name: "sort_viewer",
     image: workSortViewer,
     categories: ["Learning", "Web"],
     tags: ["Visualization", "Education", "Web App"],
+    background: "ソートアルゴリズムの動きを見て理解できる学習用Webアプリ。",
+    role: "UI設計、アニメーション実装、学習導線の調整",
+    result: "アルゴリズムの比較を操作しながら確認できる画面を制作",
+    learning: "複雑な処理ほど、状態変化を視覚化すると説明しやすくなる",
   },
   {
     name: "Life_game",
     image: workLifeGame,
     categories: ["Game", "Learning"],
     tags: ["Simulation", "Playful", "Logic"],
+    background: "セルの増減ルールを観察しながら遊べるライフゲームのシミュレーション。",
+    role: "ルール実装、操作設計、見た目の調整",
+    result: "初期状態を変えながら変化を観察できる体験を実装",
+    learning: "小さなルールでも、操作とフィードバックがあると学びにつながる",
   },
 ];
 
@@ -127,6 +143,7 @@ export default function PortfolioPage() {
             <div className="hero-copy">
               <p className="eyebrow">Portfolio / MVP</p>
               <h1 className="hero-title">UEDA TOMA</h1>
+              <p className="hero-subtitle">自分のしたい開発を、技術とデザインの両面から形にする。</p>
               <div className="hero-actions">
                 <a className="button button--accent" href="#works">
                   See Works
@@ -342,6 +359,12 @@ export default function PortfolioPage() {
                     <img src={work.image} alt={`${work.name} project`} />
                     <figcaption>
                       <h3>{work.name}</h3>
+                      <dl className="work-details">
+                        <div><dt>Background</dt><dd>{work.background}</dd></div>
+                        <div><dt>My role</dt><dd>{work.role}</dd></div>
+                        <div><dt>Result</dt><dd>{work.result}</dd></div>
+                        <div><dt>Learning</dt><dd>{work.learning}</dd></div>
+                      </dl>
                       <div className="tag-row">
                         {work.tags.map((tag) => (
                           <span className="tag" key={tag}>
