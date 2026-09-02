@@ -1,4 +1,6 @@
 .vercel
+node_modules/
+dist/
 .tmp_presentation/
 figma2html/
 output/
